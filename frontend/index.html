@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyAI - Your Smart Learning Assistant 🤖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+</head>
+<body>
+    <!-- Background Decorative Elements -->
+    <div class="bg-elements">
+        <div class="bg-circle" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="bg-circle" style="top: 20%; right: 10%; animation-delay: 0.5s;"></div>
+        <div class="bg-circle" style="bottom: 15%; left: 15%; animation-delay: 1s;"></div>
+        <div class="bg-triangle" style="top: 15%; right: 20%; animation-delay: 1.5s;"></div>
+        <div class="bg-square" style="bottom: 20%; right: 10%; animation-delay: 2s;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="logo-text">
+                    <h1>StudyAI</h1>
+                    <p>Your Smart Learning Companion</p>
+                </div>
+            </div>
+            <div class="header-buttons">
+                <button class="btn-icon" id="themeToggle" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn-icon" id="clearChat" title="Clear chat">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button class="btn-icon" id="settingsBtn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-graduation-cap"></i> Learning Topics</h3>
+            </div>
+            <div class="topics">
+                <button class="topic-btn active" data-topic="general">
+                    <i class="fas fa-comments"></i>
+                    <span>General Chat</span>
+                </button>
+                <button class="topic-btn" data-topic="programming">
+                    <i class="fas fa-code"></i>
+                    <span>Programming</span>
+                </button>
+                <button class="topic-btn" data-topic="math">
+                    <i class="fas fa-calculator"></i>
+                    <span>Mathematics</span>
+                </button>
+                <button class="topic-btn" data-topic="science">
+                    <i class="fas fa-atom"></i>
+                    <span>Science</span>
+                </button>
+                <button class="topic-btn" data-topic="debug">
+                    <i class="fas fa-bug"></i>
+                    <span>Code Debugging</span>
+                </button>
+                <button class="topic-btn" data-topic="study-tips">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Study Tips</span>
+                </button>
+                <button class="topic-btn" data-topic="interview">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Interview Prep</span>
+                </button>
+            </div>
+            
+            <div class="quick-questions">
+                <h4><i class="fas fa-bolt"></i> Quick Questions</h4>
+                <button class="quick-question" data-question="Explain Python lists with examples">
+                    Python Lists
+                </button>
+                <button class="quick-question" data-question="What is machine learning?">
+                    Machine Learning
+                </button>
+                <button class="quick-question" data-question="How to study effectively for exams?">
+                    Study Tips
+                </button>
+                <button class="quick-question" data-question="Explain binary search algorithm">
+                    Binary Search
+                </button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-message"></i>
+                    <span id="messageCount">0</span>
+                    <small>Messages</small>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-brain"></i>
+                    <span>AI</span>
+                    <small>Powered</small>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-info">
+                        <div class="ai-avatar">
+                            <i class="fas fa-robot"></i>
+                            <div class="online-dot"></div>
+                        </div>
+                        <div>
+                            <h3>StudyAI Assistant</h3>
+                            <p class="status">Online • Ready to help you learn!</p>
+                        </div>
+                    </div>
+                    <div class="model-info">
+                        <span class="model-tag">
+                            <i class="fas fa-microchip"></i>
+                            Llama 3.1
+                        </span>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Welcome Message -->
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                <h4>👋 Hello! I'm StudyAI, your intelligent learning assistant!</h4>
+                                <p>I can help you with:</p>
+                                <ul>
+                                    <li>📚 <strong>Programming & Coding</strong> - Python, JavaScript, Java, C++, etc.</li>
+                                    <li>🧮 <strong>Mathematics</strong> - Algebra, Calculus, Statistics, etc.</li>
+                                    <li>🔬 <strong>Science</strong> - Physics, Chemistry, Biology concepts</li>
+                                    <li>💻 <strong>Code Debugging</strong> - Fix errors and optimize code</li>
+                                    <li>📖 <strong>Study Strategies</strong> - Effective learning techniques</li>
+                                    <li>🎯 <strong>Interview Preparation</strong> - Tech interviews, coding challenges</li>
+                                </ul>
+                                <p>What would you like to learn today? 😊</p>
+                            </div>
+                            <div class="message-time">
+                                <i class="far fa-clock"></i> Just now
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <span>StudyAI is thinking...</span>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <div class="input-actions">
+                            <button class="action-btn" title="Upload file">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button class="action-btn" title="Code snippet">
+                                <i class="fas fa-code"></i>
+                            </button>
+                            <button class="action-btn" title="Clear input">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                        </div>
+                        <textarea 
+                            id="userInput" 
+                            placeholder="Ask me anything about programming, math, science, or any subject... (Press Shift+Enter for new line, Enter to send)"
+                            rows="1"
+                        ></textarea>
+                        <div class="send-container">
+                            <button id="sendBtn" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                <span class="send-text">Send</span>
+                            </button>
+                            <button class="voice-btn" title="Voice input">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-hints">
+                        <small>
+                            <i class="fas fa-lightbulb"></i> 
+                            Try asking: "Explain recursion in programming" or "Help me solve this math problem"
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar - History -->
+        <aside class="history-sidebar">
+            <div class="history-header">
+                <h3><i class="fas fa-history"></i> Chat History</h3>
+            </div>
+            <div class="history-list" id="historyList">
+                <!-- History items will be added here -->
+            </div>
+            <div class="features">
+                <h4><i class="fas fa-star"></i> Features</h4>
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Real-time Streaming</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-code"></i>
+                    <span>Code Execution</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Learning Analytics</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-file-export"></i>
+                    <span>Export Chat</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog"></i> Settings</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="modelSelect">AI Model</label>
+                    <select id="modelSelect" class="select-input">
+                        <option value="llama3-8b-8192">Llama 3.1 8B</option>
+                        <option value="gpt-4">GPT-4</option>
+                        <option value="claude-3">Claude 3</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="temperature">Response Creativity</label>
+                    <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+                    <div class="range-values">
+                        <span>Precise</span>
+                        <span id="tempValue">0.7</span>
+                        <span>Creative</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label for="responseLength">Response Length</label>
+                    <input type="range" id="responseLength" min="100" max="2000" step="100" value="1000">
+                    <div class="range-values">
+                        <span>Short</span>
+                        <span id="lengthValue">1000 tokens</span>
+                        <span>Detailed</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="streaming" checked>
+                        Enable real-time streaming
+                    </label>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="codeHighlighting" checked>
+                        Enable code syntax highlighting
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="resetSettings">Reset</button>
+                <button class="btn-primary" id="saveSettings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="scrollToBottom" title="Scroll to bottom">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
